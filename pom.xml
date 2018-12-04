@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <parent>
+    <groupId>org.jenkins-ci.plugins</groupId>
+    <artifactId>plugin</artifactId>
+    <version>3.29</version>
+    <relativePath />
+  </parent>
+
+  <groupId>io.jenkins.plugins</groupId>
+  <artifactId>redacted-password-parameters</artifactId>
+  <version>1.0-SNAPSHOT</version>
+  <packaging>hpi</packaging>
+
+  <properties>
+    <java.level>8</java.level>
+    <jenkins.version>2.121</jenkins.version>
+    <useBeta>true</useBeta>
+  </properties>
+
+  <name>Redacted Password Parameters Plugin</name>
+  <description>Redact (mask) password parameters that have been printed to the console</description>
+
+  <licenses>
+    <license>
+      <name>MIT License</name>
+      <url>https://opensource.org/licenses/MIT</url>
+    </license>
+  </licenses>
+
+  <url>https://wiki.jenkins.io/display/JENKINS/Redacted+Password+Parameters+Plugin</url>
+  <scm>
+    <connection>scm:git:git://github.com/jenkinsci/${project.artifactId}-plugin.git</connection>
+    <developerConnection>scm:git:git@github.com:jenkinsci/${project.artifactId}-plugin.git</developerConnection>
+    <url>https://github.com/jenkinsci/${project.artifactId}-plugin</url>
+  </scm>
+
+  <repositories>
+    <repository>
+      <id>repo.jenkins-ci.org</id>
+      <url>https://repo.jenkins-ci.org/public/</url>
+    </repository>
+  </repositories>
+
+  <pluginRepositories>
+    <pluginRepository>
+      <id>repo.jenkins-ci.org</id>
+      <url>https://repo.jenkins-ci.org/public/</url>
+    </pluginRepository>
+  </pluginRepositories>
+
+  <reporting>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-checkstyle-plugin</artifactId>
+        <version>3.0.0</version>
+        <configuration>
+          <configLocation>google_checks.xml</configLocation>
+        </configuration>
+      </plugin>
+    </plugins>
+  </reporting>
+
+  <dependencies>
+    <dependency>
+      <groupId>org.jenkins-ci.plugins.workflow</groupId>
+      <artifactId>workflow-api</artifactId>
+      <version>2.30</version>
+      <!--
+        This plugin should have Workflow as an optional dependency. Need to
+        figure out how to describe that in pom.xml.
+
+        If adding <scope>test</scope> I get compile error
+
+          Require upper bound dependencies error for org.jenkins-ci:symbol-annotation:1.1 paths to dependency are:
+          +-io.jenkins.plugins:redacted-password-parameters:1.0-SNAPSHOT
+            +-org.jenkins-ci.main:jenkins-core:2.121
+              +-org.jenkins-ci:symbol-annotation:1.1
+          and
+          +-io.jenkins.plugins:redacted-password-parameters:1.0-SNAPSHOT
+            +-org.jenkins-ci.plugins.workflow:workflow-api:2.30
+              +-org.jenkins-ci.plugins:structs:1.14
+                +-org.jenkins-ci:symbol-annotation:1.14
+       -->
+    </dependency>
+
+    <dependency>
+      <groupId>org.jenkins-ci.plugins.workflow</groupId>
+      <artifactId>workflow-job</artifactId>
+      <version>2.11.1</version>
+      <scope>test</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>org.jenkins-ci.plugins.workflow</groupId>
+      <artifactId>workflow-cps</artifactId>
+      <version>2.33</version>
+      <scope>test</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>org.jenkins-ci.plugins.workflow</groupId>
+      <artifactId>workflow-support</artifactId>
+      <version>2.14</version>
+      <scope>test</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>org.jenkins-ci.plugins.workflow</groupId>
+      <artifactId>workflow-basic-steps</artifactId>
+      <version>2.3</version>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>3.8.0</version>
+        <configuration>
+          <compilerArgs>
+            <arg>-Xlint:all</arg>
+          </compilerArgs>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+</project>
